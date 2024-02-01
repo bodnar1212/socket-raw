@@ -260,6 +260,7 @@ class Socket
      */
     public function read($length, $type = PHP_BINARY_READ)
     {
+        socket_set_option($this->resource, SOL_SOCKET, SO_RCVTIMEO, array("sec" => 60, "usec" => 0));
         $data = @socket_read($this->resource, $length, $type);
         if ($data === false) {
             throw Exception::createFromSocketResource($this->resource);
